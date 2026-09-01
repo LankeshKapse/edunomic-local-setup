@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#log folder
+api_logs/
+
+#clone folder
+codebase/

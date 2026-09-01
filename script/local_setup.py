@@ -85,7 +85,7 @@ def main():
     print("Local setup starting........!")
 
     # Load services from YAML
-    with open("services.yml", "r") as f:
+    with open("../config/services.yml", "r") as f:
         config = yaml.safe_load(f)
     services = config["services"]
 
