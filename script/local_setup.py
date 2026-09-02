@@ -63,7 +63,7 @@ def build_service(target_dir: str, service: str, jdk_path: str):
 
         
         
-def run_service(target_dir:str,jar_name:str,service_name:str, env_file=".env",log_dir="api_logs"):
+def run_service(target_dir:str,jar_name:str,service_name:str,java_home:str, env_file=".env",log_dir="api_logs"):
     print("Load env variables...!")
     __env_vars={}
     with open(env_file) as f:
@@ -86,7 +86,7 @@ def run_service(target_dir:str,jar_name:str,service_name:str, env_file=".env",lo
     try:
         # sub.run(["java","-jar",target_dir+"/target/"+jar_name], check=True,shell=True, env=env)
         # Run in background
-        run_command:list=["java", "-jar", os.path.join(target_dir, "target", jar_name)]
+        run_command:list=[os.path.join(java_home,"bin","java"), "-jar", os.path.join(target_dir, "target", jar_name)]
         
         # Open log file for writing
         with open(log_file_path, "w") as log_file:
@@ -112,17 +112,18 @@ def main():
     with open("config/services.yml", "r") as f:
         config = yaml.safe_load(f)
     services = config["services"]
-    JAVA_HOME:str=config["JAVA_HOME"]
+    java_home:str=config["JAVA_HOME"]
 
     for svc in services:
         print(f"\n--- Setting up {svc['project_name']} ---")
         clone_repo(repo_url=svc["repo_url"], target_dir=svc["target_dir"], branch_name=svc["branch_name"])
         compose_docker(target_dir=svc["target_dir"], project_name=svc["project_name"])
-        build_service(target_dir=svc["target_dir"], service=svc["project_name"],jdk_path=JAVA_HOME)
+        build_service(target_dir=svc["target_dir"], service=svc["project_name"],jdk_path=java_home)
         run_service(
             target_dir=svc["target_dir"],
             jar_name=svc["jar_name"],
             service_name=svc["project_name"],
+            java_home=java_home,
             env_file=svc["env_file"],
             log_dir= svc["log_dir"]
         )
