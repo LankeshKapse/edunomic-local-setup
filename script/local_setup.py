@@ -33,7 +33,7 @@ def compose_docker(target_dir:str, project_name:str):
         
 def build_service(target_dir: str, service: str):
     print(f"Build {service}")
-    wrapper = "../mvnw.cmd"
+    wrapper = "mvnw.cmd"
     try:
         sub.run(
             [wrapper, "clean", "install", "-Dmaven.test.skip=true", "-f", os.path.join(target_dir, "pom.xml")],
@@ -90,7 +90,7 @@ def main():
     print("Local setup starting........!")
 
     # Load services from YAML
-    with open("../config/services.yml", "r") as f:
+    with open("config/services.yml", "r") as f:
         config = yaml.safe_load(f)
     services = config["services"]
 

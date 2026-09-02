@@ -1,4 +1,4 @@
 @echo off
 REM Run the Python script
-python local_setup.py
+python script/local_setup.py
 pause
