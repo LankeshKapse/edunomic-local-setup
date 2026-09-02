@@ -31,17 +31,36 @@ def compose_docker(target_dir:str, project_name:str):
     except sub.CalledProcessError as e:
         print(f"Error running Docker Compose: {e}")
         
-def build_service(target_dir: str, service: str):
+
+def build_service(target_dir: str, service: str, jdk_path: str):
     print(f"Build {service}")
+
+    # Copy current environment
+    env = os.environ.copy()
+
+    # If JAVA_HOME not set, inject it
+    if "JAVA_HOME" not in env:
+        env["JAVA_HOME"] = jdk_path
+        env["PATH"] = os.path.join(jdk_path, "bin") + ";" + env["PATH"]
+
     wrapper = "mvnw.cmd"
+
     try:
-        sub.run(
+        result = sub.run(
             [wrapper, "clean", "install", "-Dmaven.test.skip=true", "-f", os.path.join(target_dir, "pom.xml")],
             check=True,
-            shell=True
+            shell=True,
+            env=env,
+            capture_output=True,
+            text=True
         )
+        print(result.stdout)
     except sub.CalledProcessError as e:
-        print(f"Error running mvn install: {e}")
+        print("Maven build failed")
+        print("Exit code:", e.returncode)
+        print("Output:\n", e.stdout)
+        print("Errors:\n", e.stderr)
+
         
         
 def run_service(target_dir:str,jar_name:str,service_name:str, env_file=".env",log_dir="api_logs"):
@@ -93,12 +112,13 @@ def main():
     with open("config/services.yml", "r") as f:
         config = yaml.safe_load(f)
     services = config["services"]
+    JAVA_HOME:str=config["JAVA_HOME"]
 
     for svc in services:
         print(f"\n--- Setting up {svc['project_name']} ---")
         clone_repo(repo_url=svc["repo_url"], target_dir=svc["target_dir"], branch_name=svc["branch_name"])
         compose_docker(target_dir=svc["target_dir"], project_name=svc["project_name"])
-        build_service(target_dir=svc["target_dir"], service=svc["project_name"])
+        build_service(target_dir=svc["target_dir"], service=svc["project_name"],jdk_path=JAVA_HOME)
         run_service(
             target_dir=svc["target_dir"],
             jar_name=svc["jar_name"],
