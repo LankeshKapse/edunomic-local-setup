@@ -31,10 +31,15 @@ def compose_docker(target_dir:str, project_name:str):
     except sub.CalledProcessError as e:
         print(f"Error running Docker Compose: {e}")
         
-def build_service(target_dir:str,service:str):
+def build_service(target_dir: str, service: str):
     print(f"Build {service}")
+    wrapper = "../mvnw.cmd"
     try:
-        sub.run(["mvn","clean", "install", "-Dmaven.test.skip=true", "-f", target_dir+"/pom.xml"], check=True, shell=True)
+        sub.run(
+            [wrapper, "clean", "install", "-Dmaven.test.skip=true", "-f", os.path.join(target_dir, "pom.xml")],
+            check=True,
+            shell=True
+        )
     except sub.CalledProcessError as e:
         print(f"Error running mvn install: {e}")
         
