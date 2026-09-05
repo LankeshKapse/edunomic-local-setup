@@ -113,12 +113,15 @@ def main():
         config = yaml.safe_load(f)
     services = config["services"]
     java_home:str=config["JAVA_HOME"]
+    build_code:bool=config["build_code"]
 
     for svc in services:
         print(f"\n--- Setting up {svc['project_name']} ---")
-        clone_repo(repo_url=svc["repo_url"], target_dir=svc["target_dir"], branch_name=svc["branch_name"])
+        if build_code:
+            clone_repo(repo_url=svc["repo_url"], target_dir=svc["target_dir"], branch_name=svc["branch_name"])
+            build_service(target_dir=svc["target_dir"], service=svc["project_name"],jdk_path=java_home)
+        
         compose_docker(target_dir=svc["target_dir"], project_name=svc["project_name"])
-        build_service(target_dir=svc["target_dir"], service=svc["project_name"],jdk_path=java_home)
         run_service(
             target_dir=svc["target_dir"],
             jar_name=svc["jar_name"],
