@@ -68,7 +68,7 @@ services:
 
    - repo_url: "https://bitbucket.org/edunomic/notification-manager.git"
      target_dir: "codebase/notification-manager"
-     branch_name: "develop"
+     branch_name: "feature/notification-refactoring"
      project_name: "notification_manager"
      jar_name: "notification-manager-0.0.1-SNAPSHOT.jar"
      env_file: "config/notification-manager-config.properties"
