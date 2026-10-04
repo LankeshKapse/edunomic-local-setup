@@ -1,5 +1,5 @@
 JAVA_HOME: "C:/Program Files/Java/jdk-21"
-build_code: true
+build_code: false
 
 services:
    #- repo_url: "https://bitbucket.org/edunomic/api-gateway-service.git"
@@ -7,23 +7,23 @@ services:
    #  branch_name: "develop"
    #  project_name: "api_gateway_service"
    #  jar_name: "gateway-0.0.1-SNAPSHOT.jar"
-   #  env_file: "config/api-gateway-config.properties"
+   #  env_file: "config-dev/api-gateway-config.properties"
    #  log_dir: "api_logs"
 
-   - repo_url: "https://bitbucket.org/edunomic/lead-management-service.git"
-     target_dir: "codebase/lead-management-service"
-     branch_name: "EW-139_lead_changes"
-     project_name: "lead_management_service"
-     jar_name: "lead-managment-0.0.1-SNAPSHOT.jar"
-     env_file: "config/lead-management-config.properties"
-     log_dir: "api_logs"
+   #- repo_url: "https://bitbucket.org/edunomic/lead-management-service.git"
+   #  target_dir: "codebase/lead-management-service"
+   #  branch_name: "EW-139_lead_changes"
+   #  project_name: "lead_management_service"
+   #  jar_name: "lead-managment-0.0.1-SNAPSHOT.jar"
+   #  env_file: "config-dev/lead-management-config.properties"
+   #  log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/master-service.git"
      target_dir: "codebase/master-service"
      branch_name: "develop"
      project_name: "master_service"
      jar_name: "master-service-0.0.1-SNAPSHOT.jar"
-     env_file: "config/master-service-config.properties"
+     env_file: "config-dev/master-service-config.properties"
      log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/org-services.git"
@@ -31,7 +31,7 @@ services:
      branch_name: "develop"
      project_name: "org_services"
      jar_name: "org-service-0.0.1-SNAPSHOT.jar"
-     env_file: "config/org-services-config.properties"
+     env_file: "config-dev/org-services-config.properties"
      log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/student-management.git"
@@ -39,7 +39,7 @@ services:
      branch_name: "develop"
      project_name: "student_management"
      jar_name: "student-management-0.0.1-SNAPSHOT.jar"
-     env_file: "config/student-management-config.properties"
+     env_file: "config-dev/student-management-config.properties"
      log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/finance-manager.git"
@@ -47,7 +47,7 @@ services:
      branch_name: "develop"
      project_name: "finance_manager"
      jar_name: "finance-manager-0.0.1-SNAPSHOT.jar"
-     env_file: "config/finance-manager-config.properties"
+     env_file: "config-dev/finance-manager-config.properties"
      log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/admission-management-service.git"
@@ -55,7 +55,7 @@ services:
      branch_name: "develop"
      project_name: "admission_management_service"
      jar_name: "admission-management-0.0.1-SNAPSHOT.jar"
-     env_file: "config/admission-management-service-config.properties"
+     env_file: "config-dev/admission-management-service-config.properties"
      log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/employee-management.git"
@@ -63,7 +63,7 @@ services:
      branch_name: "develop"
      project_name: "employee_management"
      jar_name: "employee-manager-0.0.1-SNAPSHOT.jar"
-     env_file: "config/employee-management-config.properties"
+     env_file: "config-dev/employee-management-config.properties"
      log_dir: "api_logs"
 
    - repo_url: "https://bitbucket.org/edunomic/notification-manager.git"
@@ -71,5 +71,5 @@ services:
      branch_name: "feature/notification-refactoring"
      project_name: "notification_manager"
      jar_name: "notification-manager-0.0.1-SNAPSHOT.jar"
-     env_file: "config/notification-manager-config.properties"
+     env_file: "config-dev/notification-manager-config.properties"
      log_dir: "api_logs"
